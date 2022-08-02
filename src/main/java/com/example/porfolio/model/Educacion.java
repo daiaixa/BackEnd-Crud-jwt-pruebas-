@@ -1,6 +1,7 @@
 
 package com.example.porfolio.model;
 
+import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,13 +21,13 @@ public class Educacion {
     private String establecimiento;
     private String curso;
     private String descripcion;
-    private int fecha_inicio;
-    private int fecha_fin;
+    private Date fecha_inicio;
+    private Date fecha_fin;
 
     public Educacion() {
     }
 
-    public Educacion(Long id, String establecimiento, String curso, String descripcion, int fecha_inicio, int fecha_fin) {
+    public Educacion(Long id, String establecimiento, String curso, String descripcion, Date fecha_inicio, Date fecha_fin) {
         this.id = id;
         this.establecimiento = establecimiento;
         this.curso = curso;
@@ -34,6 +35,8 @@ public class Educacion {
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
     }
+
+    
     
     
 }

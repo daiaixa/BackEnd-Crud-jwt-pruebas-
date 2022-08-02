@@ -42,7 +42,7 @@ public class personaController {
        
    }
    
-   @GetMapping("/ver/persona")
+   @GetMapping("/lista/persona")
    @ResponseBody
    public List<Persona> verPersonas() {
     return persoService.verPersonas();
