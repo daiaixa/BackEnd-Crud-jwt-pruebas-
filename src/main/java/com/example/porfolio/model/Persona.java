@@ -43,6 +43,7 @@ public class Persona {
         this.foto_perfil = foto_perfil;
     }
 
+    
 
     
 }

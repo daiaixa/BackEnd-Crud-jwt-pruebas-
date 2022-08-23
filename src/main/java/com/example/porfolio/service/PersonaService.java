@@ -7,10 +7,11 @@ import com.example.porfolio.model.Persona;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.porfolio.repository.IPersonaRepository;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonaService implements IPersonaService {
+public class PersonaService implements IPersonaService{
     
     /*mediante la anotacion, podremos hacer una inyeccion de dependencia, entre la clase y la interfaz, sin
     necesidad de estar ocupando el NEW repetidas veces (podemos hacer tambien inyecciones mediante
@@ -39,4 +40,3 @@ public class PersonaService implements IPersonaService {
         devuelve un NULL */
     }
 }
-

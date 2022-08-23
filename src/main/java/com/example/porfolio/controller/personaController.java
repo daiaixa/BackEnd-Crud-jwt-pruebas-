@@ -10,22 +10,21 @@ package com.example.porfolio.controller;
 
 import com.example.porfolio.model.Persona;
 import com.example.porfolio.service.IPersonaService;
-/*import java.util.ArrayList;*/
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-/*import org.springframework.web.bind.annotation.PathVariable;*/
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-/*import org.springframework.web.bind.annotation.PutMapping;*/
-/*import org.springframework.web.bind.annotation.RequestBody;*/
-/*import org.springframework.web.bind.annotation.RequestParam;*/
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class personaController {
 /* ahora hacemos la coneccion de todas las capas con el controlador
 
@@ -34,15 +33,11 @@ public class personaController {
     el servicio a nuestro repositorio
     y el repositorio a nuestra base de datos */
    @Autowired
-   public IPersonaService persoService; /*hacer la implemnetacion de nuestra interfaz*/
+   private IPersonaService persoService; /*hacer la implemnetacion de nuestra interfaz
+   en donde se encuentran los metodos*/
   
-   @PostMapping("/new/persona")
-   public void agregarPersona (@RequestBody Persona pers){
-       persoService.crearPersona(pers);
-       
-   }
    
-   @GetMapping("/lista/persona")
+   @GetMapping("/persona")
    @ResponseBody
    public List<Persona> verPersonas() {
     return persoService.verPersonas();
@@ -53,6 +48,11 @@ public class personaController {
        persoService.borrarPersona(id);
    }
    
+   @PostMapping("/new/persona")
+   public void agregarPersona (@RequestBody Persona pers){
+       persoService.crearPersona(pers);
+       
+   }
    /*las versiones nuevas de habbernite ya no existe un metodo EDIT
    sino que cuando queremos editar un objeto
    debemos utilizar el metodo SEVE (el que implementamos en nuestro servicio para hacer las altas*/
