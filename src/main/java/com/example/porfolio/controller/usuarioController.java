@@ -53,10 +53,12 @@ public class usuarioController {
     JwtProvider jwtProvider;
 
     @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevoUsuario(@RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
-
+    public ResponseEntity<?> nuevoUsuario(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(new Mensaje("Campos mail ingresados o email invalido"), HttpStatus.BAD_REQUEST);
+        }
         if (usuarioServ.existsByEmail(nuevoUsuario.getEmail())) {
-            return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Este email ya está registrado"), HttpStatus.BAD_REQUEST);
         }
         Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getEmail(),
                 passwordEncoder.encode(nuevoUsuario.getPassword()));
@@ -70,8 +72,11 @@ public class usuarioController {
         return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> autenticarUser(@RequestBody LoginUsuario loginUsuario) {
+       @PostMapping("/login")
+    public ResponseEntity<JwtDto> iniciarSesion(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+        }
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUsuario.getEmail(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -79,12 +84,9 @@ public class usuarioController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+     
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
-
     
     
 }
