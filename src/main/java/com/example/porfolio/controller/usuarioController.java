@@ -8,7 +8,7 @@ import com.example.porfolio.enums.RolNombre;
 import com.example.porfolio.jwt.JwtProvider;
 import com.example.porfolio.model.Rol;
 import com.example.porfolio.model.Usuario;
-
+import javax.validation.Valid;
 import com.example.porfolio.service.RolService;
 import com.example.porfolio.service.UsuarioService;
 import java.util.HashSet;
