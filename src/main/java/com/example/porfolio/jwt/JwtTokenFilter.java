@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private final static Logger logger = LoggerFactory.getLogger(JwtEntryPoint.class);
+    private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class); //aca el error esta en JwtEntryPoint, en realidad debe ir JwtProvider
     
     @Autowired
     JwtProvider jwtProvider;
